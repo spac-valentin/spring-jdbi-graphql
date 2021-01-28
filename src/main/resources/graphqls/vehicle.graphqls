@@ -1,0 +1,22 @@
+type Vehicle {
+	id: ID!,
+	modelCode: String,
+	someDerivedField: String,
+	brand: Brand
+}
+
+input VehicleInput {
+	id: ID!,
+	modelCode: String,
+	brandId: ID!
+}
+
+type Query {
+	vehicles(count: Int): [Vehicle]
+	vehicle(id: ID): Vehicle
+}
+
+type Mutation {
+	addVehicle(modelCode: String!, brandName: String): Vehicle
+	updateVehicle(vehicle: VehicleInput): Vehicle
+}

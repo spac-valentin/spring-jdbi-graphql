@@ -1,0 +1,60 @@
+# Add vehicle
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation addVehicle($modelCode: String!, $brandName: String!){  addVehicle(modelCode: $modelCode, brandName: $brandName) {      id    modelCode    someDerivedField    brand {          country        name    } } }",
+  "variables": {
+    "modelCode": "1",
+    "brandName": "Ford"
+  }
+}
+
+###
+
+# Add vehicle
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation addVehicle($modelCode: String!, $brandName: String!){  addVehicle(modelCode: $modelCode, brandName: $brandName) {      id    modelCode    someDerivedField    brand {          country        name    } } }",
+  "variables": {
+    "modelCode": "2",
+    "brandName": "BMW"
+  }
+}
+
+###
+
+##### List vehicles
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "query vehicles($count: Int!) {  vehicles(count: $count) {      id    modelCode    someDerivedField    brand {          country          currency      } } }",
+  "variables": {
+    "count": 200
+  }
+}
+
+###
+
+# Update vehicle
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation updateVehicle($id: ID!, $modelCode: String!, $brandId: ID!){  updateVehicle(vehicle: {      id: $id,     modelCode: $modelCode,     brandId: $brandId }) {      id   modelCode     someDerivedField      brand {          country          name      }  }}",
+  "variables": {
+    "id": 1,
+    "modelCode": "2",
+    "brandId": 1
+  }
+}
+
+###
+
+
+
+
+

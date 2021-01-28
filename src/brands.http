@@ -1,0 +1,41 @@
+# Add brand
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation addBrand($name: String!, $country: String!){  addBrand(country: $country, name: $name) {      id   name    country }}",
+  "variables": {
+    "name": "Ford",
+    "country": "USA"
+  }
+}
+
+###
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation addBrand($name: String!, $country: String!){  addBrand(country: $country, name: $name) {      id      name      country  }}",
+  "variables": {
+    "name": "BMW",
+    "country": "Germany"
+  }
+}
+
+###
+
+
+######### List brands
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "query brands($count: Int!) { brands(count: $count) {    id     name    country }}",
+  "variables": {
+    "count": 200
+  }
+}
+
+###
+
+

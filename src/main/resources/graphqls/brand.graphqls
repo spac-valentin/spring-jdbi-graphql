@@ -1,0 +1,15 @@
+type Brand {
+	id: ID!,
+	name: String,
+	country: String
+	currency: String
+}
+
+
+extend type Query {
+	brands(count: Int): [Brand]
+}
+
+extend type Mutation {
+	addBrand(name: String!, country: String!): Brand
+}

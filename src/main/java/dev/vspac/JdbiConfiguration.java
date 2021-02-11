@@ -3,9 +3,12 @@ package dev.vspac;
 import dev.vspac.dao.BrandDao;
 import dev.vspac.dao.VehicleDao;
 
+import dev.vspac.domain.Brand;
+import dev.vspac.domain.Vehicle;
 import javax.sql.DataSource;
 
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.mapper.immutables.JdbiImmutables;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +26,7 @@ public class JdbiConfiguration {
         TransactionAwareDataSourceProxy proxy = new TransactionAwareDataSourceProxy(ds);        
         Jdbi jdbi = Jdbi.create(proxy);
         jdbi.installPlugin(new SqlObjectPlugin());
-        
+
         return jdbi;
     }
 
@@ -42,6 +45,7 @@ public class JdbiConfiguration {
 
     @Bean
     public BrandDao brandDao(Jdbi jdbi) {
+        jdbi.getConfig(JdbiImmutables.class).registerImmutable(Brand.class);
         return jdbi.onDemand(BrandDao.class);
     }
 }

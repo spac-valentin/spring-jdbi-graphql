@@ -2,6 +2,7 @@ package dev.vspac.service;
 
 import dev.vspac.dao.BrandDao;
 import dev.vspac.domain.Brand;
+import dev.vspac.domain.ImmutableBrand;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +25,16 @@ public class BrandService {
 
 	@Transactional
 	public Brand add(Brand brand) {
-		Optional<Brand> existingBrand = this.findByName(brand.getName());
+		Optional<Brand> existingBrand = this.findByName(brand.name());
 		if(existingBrand.isPresent()) {
-			throw new BrandNotFoundException("Brand " + brand.getName() + " already exists");
+			throw new BrandNotFoundException("Brand " + brand.name() + " already exists");
 		}
 
 		long id = dao.insert(brand);
-		brand.setId(id);
-		return brand;
+		return ImmutableBrand.builder()
+				        .from(brand)
+				        .id(id)
+								.build();
 	}
 
 	public List<Brand> findAll(int count) {

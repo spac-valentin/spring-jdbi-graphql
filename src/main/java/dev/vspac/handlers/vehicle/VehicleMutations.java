@@ -22,12 +22,19 @@ public class VehicleMutations implements GraphQLMutationResolver {
 
 	public Vehicle addVehicle(String modelCode, String brandName) {
 		Brand brand = brandService.findByName(brandName)
-				.orElseThrow(() -> this.brandNotFoundException(brandName));
+				              .orElseThrow(() -> this.brandNotFoundException(brandName));
 
-		Vehicle vehicle = new Vehicle();
-		vehicle.setBrandId(brand.getId());
-		vehicle.setModelCode(modelCode);
-		return service.add(vehicle);
+		Vehicle vehicle = ImmutableVehicle.builder()
+				                  .brandId(brand.id())
+				                  .modelCode(addVehicleDto.modelCode())
+				                  .build();
+		Vehicle savedVehicle = service.add(vehicle);
+
+		return ImmutableVehicleDto.builder()
+				       .id(savedVehicle.id())
+				       .brandId(savedVehicle.brandId())
+				       .modelCode(savedVehicle.modelCode())
+				       .build();
 	}
 
 	public Vehicle updateVehicle(Vehicle vehicle) {
@@ -40,10 +47,10 @@ public class VehicleMutations implements GraphQLMutationResolver {
 	}
 
 	private AppGraphQLException vehicleNotFound(Long vehicleId) {
-		return new AppGraphQLException("Vehicle with id  " + vehicleId +" not found");
+		return new AppGraphQLException("Vehicle with id  " + vehicleId + " not found");
 	}
 
 	private AppGraphQLException brandNotFoundException(String brandName) {
-		return new AppGraphQLException("Brand " + brandName +" not found");
+		return new AppGraphQLException("Brand " + brandName + " not found");
 	}
 }

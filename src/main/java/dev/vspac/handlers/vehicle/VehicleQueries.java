@@ -1,10 +1,13 @@
 package dev.vspac.handlers.vehicle;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import dev.vspac.AppGraphQLException;
 import dev.vspac.domain.Vehicle;
+import dev.vspac.dto.vehicle.ImmutableVehicleDto;
+import dev.vspac.dto.vehicle.VehicleDto;
 import dev.vspac.service.VehicleService;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +20,23 @@ public class VehicleQueries implements GraphQLQueryResolver {
 		this.service = service;
 	}
 
-	public Optional<Vehicle> vehicle(Long id) {
-		return service.byId(id);
+	public VehicleDto vehicle(Long id) {
+		Vehicle vehicle = service.byId(id).orElseThrow(
+				() -> new AppGraphQLException("Could not find Vehicle with id " + id));
+		return ImmutableVehicleDto.builder()
+				       .id(vehicle.id())
+				       .modelCode(vehicle.modelCode())
+				       .brandId(vehicle.brandId())
+				       .build();
 	}
 
-	public List<Vehicle> vehicles(int count) {
-		return service.findAll(count);
+	public List<VehicleDto> vehicles(int count) {
+		return service.findAll(count).stream()
+				       .map(v -> ImmutableVehicleDto.builder()
+						                 .id(v.id())
+						                 .modelCode(v.modelCode())
+						                 .brandId(v.brandId())
+						                 .build())
+				       .collect(Collectors.toList());
 	}
 }

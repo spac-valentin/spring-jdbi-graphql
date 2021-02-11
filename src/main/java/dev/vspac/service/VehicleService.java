@@ -1,6 +1,7 @@
 package dev.vspac.service;
 
 import dev.vspac.dao.VehicleDao;
+import dev.vspac.domain.ImmutableVehicle;
 import dev.vspac.domain.Vehicle;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,10 @@ public class VehicleService {
 		log.info("Current transaction name " + TransactionSynchronizationManager.getCurrentTransactionName());
 
 		long id = dao.insert(vehicle);
-		vehicle.setId(id);
-		return vehicle;
+		return ImmutableVehicle.builder()
+				       .from(vehicle)
+				       .id(id)
+				       .build();
 	}
 
 	public List<Vehicle> findAll(int count) {

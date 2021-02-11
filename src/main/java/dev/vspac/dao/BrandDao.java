@@ -3,9 +3,8 @@ package dev.vspac.dao;
 import dev.vspac.domain.Brand;
 import java.util.List;
 import java.util.Optional;
-import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
-import org.jdbi.v3.sqlobject.customizer.BindBean;
+import org.jdbi.v3.sqlobject.customizer.BindPojo;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
@@ -21,17 +20,14 @@ public interface BrandDao {
 
 	@GetGeneratedKeys
 	@SqlUpdate(BrandDaoCatalog.ADD)
-	Long insert(@BindBean Brand vehicle);
+	Long insert(@BindPojo Brand vehicle);
 
 	@SqlQuery(BrandDaoCatalog.GET_BY_ID)
-	@RegisterConstructorMapper(Brand.class)
 	Optional<Brand> findById(@Bind("id") Long id);
 
 	@SqlQuery(BrandDaoCatalog.FIND_ALL)
-	@RegisterConstructorMapper(Brand.class)
 	List<Brand> findAll(int limit);
 
 	@SqlQuery(BrandDaoCatalog.FIND_BY_NAME)
-	@RegisterConstructorMapper(Brand.class)
   Optional<Brand> findByName(String brandName);
 }

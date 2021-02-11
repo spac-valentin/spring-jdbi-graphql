@@ -1,26 +1,21 @@
 package dev.vspac.handlers.brand;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import dev.vspac.domain.Brand;
-import dev.vspac.domain.Vehicle;
-import dev.vspac.service.BrandService;
-import dev.vspac.service.VehicleService;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import dev.vspac.dto.brand.BrandDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BrandResolver implements GraphQLResolver<Brand> {
+public class BrandResolver implements GraphQLResolver<BrandDto> {
 
-	public String currency(Brand brand) {
-		if(isUSA(brand)) {
+	public String currency(BrandDto brandDto) {
+		if(isUSA(brandDto)) {
 			return "USD";
 		}
 
 		return "EUR";
 	}
 
-	private boolean isUSA(Brand brand) {
-		return "usa".equalsIgnoreCase(brand.getCountry());
+	private boolean isUSA(BrandDto brandDto) {
+		return "usa".equalsIgnoreCase(brandDto.country());
 	}
 }

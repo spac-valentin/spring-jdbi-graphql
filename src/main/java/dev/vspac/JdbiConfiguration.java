@@ -44,8 +44,10 @@ public class JdbiConfiguration {
     }
 
     @Bean
-    public BrandDao brandDao(Jdbi jdbi) {
-        jdbi.getConfig(JdbiImmutables.class).registerImmutable(Brand.class);
+    public BrandDao brandDao(Jdbi jdbi) throws ClassNotFoundException {
+        Class brand = jdbi.getConfig(JdbiImmutables.class).getClass().getClassLoader().loadClass(Brand.class.getName());
+        Class v = jdbi.getConfig(JdbiImmutables.class).getClass().getClassLoader().loadClass(Vehicle.class.getName());
+        jdbi.getConfig(JdbiImmutables.class).registerImmutable(brand, v);
         return jdbi.onDemand(BrandDao.class);
     }
 }

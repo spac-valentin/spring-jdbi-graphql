@@ -1,24 +1,15 @@
 package dev.vspac.domain;
 
-import java.beans.ConstructorProperties;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
+import org.immutables.value.Value;
 
-@Data
-@NoArgsConstructor
-public class Vehicle {
-	private Long id;
-	private Long brandId;
-	private String modelCode;
-	private String somethingElse;
+@Value.Immutable
+public interface Vehicle {
 
+  Long id();
 
-	@JdbiConstructor
-	@ConstructorProperties({"id", "brandId", "modelCode"})
-	public Vehicle(Long id, Long brandId, String modelCode) {
-		this.id = id;
-		this.brandId = brandId;
-		this.modelCode = modelCode;
-	}
+  Long brandId();
+
+  String modelCode();
+
+  String somethingElse();
 }

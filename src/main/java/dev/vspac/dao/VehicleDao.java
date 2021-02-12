@@ -1,5 +1,6 @@
 package dev.vspac.dao;
 
+import dev.vspac.domain.ImmutableVehicle;
 import dev.vspac.domain.Vehicle;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +20,10 @@ public interface VehicleDao {
 	Long insert(@BindBean Vehicle vehicle);
 
 	@SqlQuery("Select * from vehicle where id = :id")
-	@RegisterConstructorMapper(Vehicle.class)
+	@RegisterConstructorMapper(ImmutableVehicle.class)
 	Optional<Vehicle> findById(@Bind("id") Long id);
 
 	@SqlQuery("select id as id, brand_id, model_code as modelCode from vehicle limit ?")
-	@RegisterConstructorMapper(Vehicle.class)
+	@RegisterConstructorMapper(ImmutableVehicle.class)
 	List<Vehicle> findAll(int limit);
 }

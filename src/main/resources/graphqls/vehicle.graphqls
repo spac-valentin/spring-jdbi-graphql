@@ -5,12 +5,7 @@ type Vehicle {
 	brand: Brand
 }
 
-input AddVehicleInput {
-	modelCode: String!,
-	brandName: String
-}
-
-input UpdateVehicleInput {
+input VehicleInput {
 	id: ID!,
 	modelCode: String,
 	brandId: ID!
@@ -22,6 +17,6 @@ type Query {
 }
 
 type Mutation {
-	addVehicle(vehicle: AddVehicleInput): Vehicle
-	updateVehicle(vehicle: UpdateVehicleInput): Vehicle
+	addVehicle(modelCode: String!, brandName: String): Vehicle
+	updateVehicle(vehicle: VehicleInput): Vehicle
 }

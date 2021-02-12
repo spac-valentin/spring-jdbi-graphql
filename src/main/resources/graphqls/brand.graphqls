@@ -5,16 +5,11 @@ type Brand {
 	currency: String
 }
 
-input AddBrandInput {
-	name: String!,
-	country: String!
-}
-
 
 extend type Query {
 	brands(count: Int): [Brand]
 }
 
 extend type Mutation {
-	addBrand(brand: AddBrandInput!): Brand
+	addBrand(name: String!, country: String!): Brand
 }

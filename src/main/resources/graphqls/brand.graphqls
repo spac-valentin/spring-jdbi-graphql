@@ -1,9 +1,23 @@
 type Brand {
 	id: ID!,
 	name: String,
-	country: String
+	country: String,
+	managerName: String,
 	currency: String
 }
+
+input BrandInput {
+	name: String!,
+	country: String!,
+	managerName: String!
+}
+
+input SubBrandInput {
+	name: String!,
+	country: String!,
+	subBrandOf: String!
+}
+
 
 
 extend type Query {
@@ -11,5 +25,7 @@ extend type Query {
 }
 
 extend type Mutation {
-	addBrand(name: String!, country: String!): Brand
+	addBrand(brand: BrandInput!): Brand
+	updateBrand(id: ID!, brand: BrandInput!): Brand
+	addSubBrand(brand: SubBrandInput!): Brand
 }

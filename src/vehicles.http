@@ -3,12 +3,16 @@ POST http://localhost:9090/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation addVehicle($modelCode: String!, $brandName: String!){  addVehicle(modelCode: $modelCode, brandName: $brandName) {      id    modelCode    someDerivedField    brand {          country        name    } } }",
+  "query": "mutation addVehicle($vehicle: VehicleInput!){  addVehicle(vehicle: $vehicle) {      id    modelCode    color     someDerivedField    brand {          country        name  managerName    } } }",
   "variables": {
-    "modelCode": "1",
-    "brandName": "Ford"
+  	"vehicle": {
+  		"brandId": "1",
+  		"modelCode": "A4",
+    	"color": "red"
+  	}
   }
 }
+
 
 ###
 
@@ -17,10 +21,29 @@ POST http://localhost:9090/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation addVehicle($modelCode: String!, $brandName: String!){  addVehicle(modelCode: $modelCode, brandName: $brandName) {      id    modelCode    someDerivedField    brand {          country        name    } } }",
+  "query": "mutation addVehicle($vehicle: VehicleInput!){  addVehicle(vehicle: $vehicle) {      id    modelCode    color     someDerivedField    brand {          country        name  managerName    } } }",
   "variables": {
-    "modelCode": "2",
-    "brandName": "BMW"
+  	"vehicle": {
+  		"brandId": "2",
+  		"modelCode": "E63",
+    	"color": "blue"
+  	}
+  }
+}
+
+
+# Add vehicle for brand name
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation addVehicleForBrandName($brandName: String!, $vehicle: VehicleNoBrandNameInput!){  addVehicleForBrandName(brandName: $brandName, vehicle: $vehicle) {      id    modelCode    color     someDerivedField    brand {          country        name    managerName    } } }",
+  "variables": {
+  	"brandName": "BMW",
+  	"vehicle": {
+  		"modelCode": "5Series",
+    	"color": "white"
+  	}
   }
 }
 
@@ -31,7 +54,7 @@ POST http://localhost:9090/graphql
 Content-Type: application/json
 
 {
-  "query": "query vehicles($count: Int!) {  vehicles(count: $count) {      id    modelCode    someDerivedField    brand {          country          currency      } } }",
+  "query": "query vehicles($count: Int!) {  vehicles(count: $count) {      id    modelCode    someDerivedField    brand {          country     managerName     currency      } } }",
   "variables": {
     "count": 200
   }
@@ -44,11 +67,14 @@ POST http://localhost:9090/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation updateVehicle($id: ID!, $modelCode: String!, $brandId: ID!){  updateVehicle(vehicle: {      id: $id,     modelCode: $modelCode,     brandId: $brandId }) {      id   modelCode     someDerivedField      brand {          country          name      }  }}",
+  "query": "mutation updateVehicle($id: ID!, $vehicle: VehicleInput!){  updateVehicle(id: $id, vehicle: $vehicle) {      id   modelCode   color   someDerivedField      brand {          country          name      managerName}  }}",
   "variables": {
     "id": 1,
-    "modelCode": "2",
-    "brandId": 1
+    "vehicle": {
+	    "modelCode": "A4",
+	    "brandId": 1,
+	    "color": "green"
+    }
   }
 }
 

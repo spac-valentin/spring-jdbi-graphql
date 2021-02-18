@@ -1,4 +1,4 @@
 --
 -- Insert
 --
-insert into vehicle(model_code, brand_id) values (:modelCode,:brandId);
+insert into vehicle(model_code, color, brand_id) values (:modelCode, :color, :brandId);

@@ -1,26 +1,66 @@
-# Add brand
+# Add brand (Audi)
 POST http://localhost:9090/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation addBrand($name: String!, $country: String!){  addBrand(country: $country, name: $name) {      id   name    country }}",
+  "query": "mutation addBrand($brand: BrandInput!){  addBrand(brand: $brand) {      id   name    country  managerName }}",
   "variables": {
-    "name": "Ford",
-    "country": "USA"
+  	"brand": {
+	  	"name": "Audi",
+		"country": "Germany",
+		"managerName": "Hans"
+  	}
   }
 }
 
-###
+
+### Add Brand (BMW)
 POST http://localhost:9090/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation addBrand($name: String!, $country: String!){  addBrand(country: $country, name: $name) {      id      name      country  }}",
+  "query": "mutation addBrand($brand: BrandInput!){  addBrand(brand: $brand) {      id   name    country  managerName }}",
   "variables": {
-    "name": "BMW",
-    "country": "Germany"
+  	"brand": {
+	  	"name": "BMW",
+		"country": "Germany",
+		"managerName": "Frank"
+  	}
   }
 }
+
+### Add Sub Brand (Lambourghini)
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation addSubBrand($brand: SubBrandInput!){  addSubBrand(brand: $brand) {      id   name    country  managerName }}",
+  "variables": {
+  	"brand": {
+	  	"name": "Lambourghini",
+		"country": "Italy",
+		"subBrandOf": "Audi"
+  	}
+  }
+}
+
+
+### Update Brand (Lambourghini)
+POST http://localhost:9090/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation updateBrand($id: ID!, $brand: BrandInput!){  updateBrand(id: $id, brand: $brand) {      id   name    country  managerName }}",
+  "variables": {
+    "id": 3,
+  	"brand": {
+	  	"name": "Lambourghini",
+		"country": "Italy",
+		"managerName": "Antonio"
+  	}
+  }
+}
+
 
 ###
 

@@ -24,13 +24,19 @@ public class VehicleService {
 	}
 
 	@Transactional
-	public Vehicle add(Vehicle vehicle) {
+	public Vehicle add(final Vehicle vehicle) {
 		log.info("Transaction is active: " + TransactionSynchronizationManager.isActualTransactionActive());
 		log.info("Current transaction name " + TransactionSynchronizationManager.getCurrentTransactionName());
-
 		long id = dao.insert(vehicle);
-		vehicle.setId(id);
-		return vehicle;
+		return vehicle.toBuilder().id(id).build();
+	}
+
+	public Optional<Vehicle> update(Vehicle vehicle) {
+		boolean isUpdated = dao.update(vehicle);
+		if(isUpdated) {
+			return Optional.of(vehicle);
+		}
+		return Optional.empty();
 	}
 
 	public List<Vehicle> findAll(int count) {

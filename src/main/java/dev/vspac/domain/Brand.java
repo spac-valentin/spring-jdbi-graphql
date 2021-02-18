@@ -1,22 +1,16 @@
 package dev.vspac.domain;
 
-import java.beans.ConstructorProperties;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
+import javax.annotation.Nullable;
+import org.immutables.value.Value;
 
-@Data
-@NoArgsConstructor
-public class Brand {
-	private Long id;
-	private String name;
-	private String country;
+@Value.Immutable
+public interface Brand {
+	@Nullable
+	Long getId();
 
-	@JdbiConstructor
-	@ConstructorProperties({"id", "name", "country"})
-	public Brand(Long id, String name, String country) {
-		this.id = id;
-		this.name = name;
-		this.country = country;
-	}
+	String getName();
+
+	String getCountry();
+
+	String getManagerName();
 }

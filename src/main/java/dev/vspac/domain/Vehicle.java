@@ -1,24 +1,20 @@
 package dev.vspac.domain;
 
-import java.beans.ConstructorProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
 
+@Builder(toBuilder = true)
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Vehicle {
-	private Long id;
-	private Long brandId;
-	private String modelCode;
-	private String somethingElse;
+  private Long id;
 
+  private Long brandId;
 
-	@JdbiConstructor
-	@ConstructorProperties({"id", "brandId", "modelCode"})
-	public Vehicle(Long id, Long brandId, String modelCode) {
-		this.id = id;
-		this.brandId = brandId;
-		this.modelCode = modelCode;
-	}
+  private String modelCode;
+
+  private String color;
 }

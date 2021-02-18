@@ -1,13 +1,19 @@
 type Vehicle {
 	id: ID!,
 	modelCode: String,
+	color: String,
 	someDerivedField: String,
 	brand: Brand
 }
 
+input VehicleNoBrandNameInput {
+	modelCode: String!,
+	color: String,
+}
+
 input VehicleInput {
-	id: ID!,
-	modelCode: String,
+	modelCode: String!,
+	color: String!,
 	brandId: ID!
 }
 
@@ -17,6 +23,7 @@ type Query {
 }
 
 type Mutation {
-	addVehicle(modelCode: String!, brandName: String): Vehicle
-	updateVehicle(vehicle: VehicleInput): Vehicle
+	addVehicle(vehicle: VehicleInput!): Vehicle
+	updateVehicle(id: ID!, vehicle: VehicleInput!): Vehicle
+	addVehicleForBrandName(brandName: String!, vehicle: VehicleNoBrandNameInput!): Vehicle
 }

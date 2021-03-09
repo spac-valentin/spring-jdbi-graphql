@@ -1,11 +1,11 @@
 package dev.vspac.handlers.vehicle;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import dev.vspac.domain.Vehicle;
 import dev.vspac.dto.vehicle.VehicleDto;
 import dev.vspac.exceptions.graphql.VehicleNotFoundException;
 import dev.vspac.mappers.VehicleMapper;
 import dev.vspac.service.VehicleService;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;

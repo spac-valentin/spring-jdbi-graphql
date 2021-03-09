@@ -1,9 +1,9 @@
 package dev.vspac.handlers.brand;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import dev.vspac.dto.brand.BrandDto;
 import dev.vspac.mappers.BrandMapper;
 import dev.vspac.service.BrandService;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;

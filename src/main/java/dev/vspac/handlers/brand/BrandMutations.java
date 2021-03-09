@@ -1,6 +1,5 @@
 package dev.vspac.handlers.brand;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import dev.vspac.AppGraphQLException;
 import dev.vspac.domain.Brand;
 import dev.vspac.domain.ImmutableBrand;
@@ -12,10 +11,14 @@ import dev.vspac.exceptions.service.BrandAlreadyExistsException;
 import dev.vspac.mappers.BrandMapper;
 import dev.vspac.mappers.BrandMapperImpl;
 import dev.vspac.service.BrandService;
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 @Component
+@Validated
 public class BrandMutations implements GraphQLMutationResolver {
 	private final BrandService service;
 	private final BrandMapper brandMapper;
@@ -26,7 +29,7 @@ public class BrandMutations implements GraphQLMutationResolver {
 		this.brandMapper = new BrandMapperImpl();
 	}
 
-	public BrandDto addBrand(CreatingBrandDto dto) {
+	public BrandDto addBrand(@Valid CreatingBrandDto dto) {
 		Brand brand = brandMapper.fromCreatingBrandDto(dto);
 		System.out.println(dto);
 		try {
@@ -37,7 +40,7 @@ public class BrandMutations implements GraphQLMutationResolver {
 		}
 	}
 
-	public BrandDto updateBrand(Long id, CreatingBrandDto dto) {
+	public BrandDto updateBrand(Long id, @Valid CreatingBrandDto dto) {
 		Brand brand = ImmutableBrand.builder()
 											.from(brandMapper.fromCreatingBrandDto(dto))
 											.id(id)
@@ -47,7 +50,7 @@ public class BrandMutations implements GraphQLMutationResolver {
 		return brandMapper.toBrandDto(updatedBrand);
 	}
 
-	public BrandDto addSubBrand(CreatingSubBrandDto dto) {
+	public BrandDto addSubBrand(@Valid CreatingSubBrandDto dto) {
 		String superBrandName = dto.getSubBrandOf();
 		Brand superBrand = service.findByName(superBrandName).orElseThrow(
 				() -> new BrandNotFoundException(superBrandName));

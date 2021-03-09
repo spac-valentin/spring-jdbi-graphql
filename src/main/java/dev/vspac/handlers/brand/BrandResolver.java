@@ -1,7 +1,7 @@
 package dev.vspac.handlers.brand;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
 import dev.vspac.dto.brand.BrandDto;
+import graphql.kickstart.tools.GraphQLResolver;
 import org.springframework.stereotype.Component;
 
 @Component

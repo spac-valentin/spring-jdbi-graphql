@@ -1,12 +1,12 @@
 package dev.vspac.handlers.vehicle;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
 import dev.vspac.domain.Brand;
 import dev.vspac.dto.brand.BrandDto;
 import dev.vspac.dto.vehicle.VehicleDto;
 import dev.vspac.exceptions.graphql.BrandNotFoundException;
 import dev.vspac.mappers.BrandMapper;
 import dev.vspac.service.BrandService;
+import graphql.kickstart.tools.GraphQLResolver;
 import java.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

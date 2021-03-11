@@ -3,14 +3,11 @@ package dev.vspac.service;
 import dev.vspac.dao.BrandDao;
 import dev.vspac.domain.Brand;
 import dev.vspac.domain.ImmutableBrand;
-import dev.vspac.domain.Vehicle;
 import dev.vspac.exceptions.service.BrandAlreadyExistsException;
 import java.util.List;
 import java.util.Optional;
-import org.checkerframework.checker.nullness.Opt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BrandService {
